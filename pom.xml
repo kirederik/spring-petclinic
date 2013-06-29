@@ -406,11 +406,13 @@
 				<version>2.0</version>
 				<configuration>
 					<server>tomcat-development-server</server>
-					<port>9966</port>
-					<path>/petclinic</path>
+                    <port>9966</port>
+                    <path>/petclinic</path>
+                    <warFile>${project.build.directory}/petclinic.war</warFile>
+                    <url>http://localhost:8080/manager/text</url>
+                    <update>true</update>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
