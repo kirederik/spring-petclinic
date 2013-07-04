@@ -15,10 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository.jdbc;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.sql.DataSource;
 
@@ -58,10 +55,11 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
 
     private SimpleJdbcInsert insertOwner;
 
+    private List<String> ownersAsStringCache = Collections.synchronizedList(new ArrayList<String>());
+
     @Autowired
     public JdbcOwnerRepositoryImpl(DataSource dataSource, NamedParameterJdbcTemplate namedParameterJdbcTemplate,
                                    VisitRepository visitRepository) {
-
         this.insertOwner = new SimpleJdbcInsert(dataSource)
                 .withTableName("owners")
                 .usingGeneratedKeyColumns("id");
@@ -86,6 +84,16 @@ public class JdbcOwnerRepositoryImpl implements OwnerRepository {
                 params,
                 ParameterizedBeanPropertyRowMapper.newInstance(Owner.class)
         );
+
+        for(Owner owner : owners)
+            ownersAsStringCache.add(owner.toString()
+                    + UUID.randomUUID()
+                    + UUID.randomUUID()
+                    + UUID.randomUUID()
+                    + UUID.randomUUID()
+                    + UUID.randomUUID()
+                    + UUID.randomUUID());
+
         loadOwnersPetsAndVisits(owners);
         return owners;
     }
