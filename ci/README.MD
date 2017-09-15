@@ -22,3 +22,4 @@ Agenda:
   - set pipeline: fly -t zumba set-pipeline -p spring-petclinic-ci -c ci/pipeline.yml
   - run the build job -- watch it go green
   - add trigger true to the "get" of the source code
+  - create a new job called test and connect it after the build job
