@@ -20,3 +20,5 @@ Agenda:
     - for that, we'll need to define a git resource that knows where to find the git repo
     - once we have the resource defined, we can make our job to "get" this resource
   - set pipeline: fly -t zumba set-pipeline -p spring-petclinic-ci -c ci/pipeline.yml
+  - run the build job -- watch it go green
+  - add trigger true to the "get" of the source code

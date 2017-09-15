@@ -10,6 +10,7 @@ jobs:
 - name: build
   plan:
   - get: source-code
+    trigger: true
   - task: build
     config:
       platform: linux
