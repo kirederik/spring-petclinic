@@ -102,4 +102,4 @@ jobs:
       put: tweet
       params:
         status: >
-          A new version of the PetClinic is available! Check it out!
+          A new version of the PetClinic is available (build ${BUILD_ID})! Check it out!
