@@ -93,12 +93,11 @@ jobs:
             ./mvnw package
             cp target/spring-petclinic*.jar ../package/app.jar
             popd
-          - package
   - put: cloudfoundry
     params:
       manifest: source-code/manifest.yml
       path: package/app.jar
-      current_app_name: springpetclinic
+      current_app_name: springpetclinic # for blue green deployment
     on_success:
       put: tweet
       params:
