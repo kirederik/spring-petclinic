@@ -76,10 +76,29 @@ jobs:
   - get: source-code
     trigger: true
     passed: [test]
+  - task: package
+    config:
+      <<: *image_definition
+      inputs:
+      - name: source-code
+      outputs:
+      - name: package
+      run:
+        path: /bin/bash
+        args:
+          - -c
+          - |
+            set -eu
+            pushd source-code
+            ./mvnw package
+            cp target/spring-petclinic*.jar ../package/app.jar
+            popd
+          - package
   - put: cloudfoundry
     params:
       manifest: source-code/manifest.yml
-      path: source-code
+      path: package/app.jar
+      current_app_name: springpetclinic
     on_success:
       put: tweet
       params:
