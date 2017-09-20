@@ -1,4 +1,13 @@
 ---
+image_definition: &image_definition
+  platform: linux
+
+  image_resource:
+    type: docker-image
+    source:
+      repository: openjdk
+      tag: 8-jdk
+
 resources:
 - name: source-code
   type: git
@@ -22,13 +31,7 @@ jobs:
     trigger: true
   - task: build
     config:
-      platform: linux
-
-      image_resource:
-        type: docker-image
-        source:
-          repository: openjdk
-          tag: 8-jdk
+      <<: *image_definition
 
       inputs:
       - name: source-code
@@ -46,14 +49,7 @@ jobs:
     passed: [build]
   - task: test
     config:
-      platform: linux
-
-      image_resource:
-        type: docker-image
-        source:
-          repository: openjdk
-          tag: 8-jdk
-
+      <<: *image_definition
       inputs:
       - name: source-code
         path: .
@@ -62,7 +58,6 @@ jobs:
         path: ./mvnw
         args:
           - test
-
 - name: deploy
   plan:
   - get: source-code
