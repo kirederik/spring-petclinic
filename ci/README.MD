@@ -23,3 +23,15 @@ Agenda:
   - run the build job -- watch it go green
   - add trigger true to the "get" of the source code
   - create a new job called test and connect it after the build job
+    - you can connect two jobs by using the "passed" keyword
+  - create a new job called "code-analysis" to verify your code
+  - create a job to deploy the app to CF
+    - using the cf resource
+    - with blue-green set to true -- so we have zero downtime
+    - on success, notify on twitter that there is a new version of the app available
+    - on failure, send notification on slack that deployment failed
+  - create a new job to run regression tests against the just-deployed application
+  - Briefly explain how Pivotal relies on github + tracker + concourse integration
+    - Explain how one could do a similar thing with Jira, using the Jira Resource (https://github.com/danrspencer/jira-resource) for example
+    - Note that one can easily implement one's own resource to extend concourse
+  - wrap up

@@ -5,6 +5,15 @@ resources:
   source:
     uri: https://github.com/dlresende/spring-petclinic.git
     branch: concourse-live-demo
+- name: cloudfoundry
+  type: cf
+  source:
+    api: {{cf-api}}
+    username: {{cf-username}}
+    password: {{cf-password}}
+    organization: {{cf-org}}
+    space: {{cf-space}}
+    skip_cert_check: true
 
 jobs:
 - name: build
@@ -53,3 +62,13 @@ jobs:
         path: ./mvnw
         args:
           - test
+
+- name: deploy
+  plan:
+  - get: source-code
+    trigger: true
+    passed: [test]
+  - put: cloudfoundry
+    params:
+      manifest: source-code/manifest.yml
+      path: source-code
