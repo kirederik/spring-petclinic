@@ -4,3 +4,8 @@ cf-password: my-password
 organization: orgname
 space: spacename
 
+twitter-consumer-key: example-consumer
+twitter-consumer-secret: example-secret
+twitter-access-token: example-access-token
+twitter-access-token-secret: example-token-secret
+

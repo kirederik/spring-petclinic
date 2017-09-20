@@ -8,11 +8,17 @@ image_definition: &image_definition
       repository: openjdk
       tag: 8-jdk
 
+resource_types:
+- name: twitter
+  type: docker-image
+  source:
+    repository: ecsteam/twitter-concourse-resource
+
 resources:
 - name: source-code
   type: git
   source:
-    uri: https://github.com/dlresende/spring-petclinic.git
+    uri: https://github.com/kirederik/spring-petclinic.git
     branch: concourse-live-demo
 - name: cloudfoundry
   type: cf
@@ -23,6 +29,13 @@ resources:
     organization: {{cf-org}}
     space: {{cf-space}}
     skip_cert_check: true
+- name: tweet
+  type: twitter
+  source:
+    consumer_key: {{twitter-consumer-key}}
+    consumer_secret: {{twitter-consumer-secret}}
+    access_token: {{twitter-access-token}}
+    access_token_secret: {{twitter-access-token-secret}}
 
 jobs:
 - name: build
@@ -67,3 +80,8 @@ jobs:
     params:
       manifest: source-code/manifest.yml
       path: source-code
+    on_success:
+      put: tweet
+      params:
+        status: >
+          A new version of the PetClinic is available! Check it out!
