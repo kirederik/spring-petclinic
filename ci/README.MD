@@ -1,8 +1,6 @@
 - build v
 - test  v
-- code analysis v
-- deploy v >> PWS
-- regression ???
+- deploy v >> opsmanager env
 
 
 Agenda:

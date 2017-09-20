@@ -21,7 +21,7 @@ resources:
     uri: https://github.com/kirederik/spring-petclinic.git
     branch: concourse-live-demo
 - name: cloudfoundry
-  type: cf
+  type: cf #from https://github.com/concourse/cf-resource
   source:
     api: {{cf-api}}
     username: {{cf-username}}
@@ -29,7 +29,7 @@ resources:
     organization: {{cf-org}}
     space: {{cf-space}}
     skip_cert_check: true
-- name: tweet
+- name: tweet # https://github.com/ECSTeam/twitter-resource
   type: twitter
   source:
     consumer_key: {{twitter-consumer-key}}
@@ -71,6 +71,7 @@ jobs:
         path: ./mvnw
         args:
           - test
+
 - name: deploy
   plan:
   - get: source-code

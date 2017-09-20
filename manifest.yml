@@ -2,4 +2,3 @@
 applications:
 - name: springpetclinic
   buildpack: java_buildpack_offline
-  path: .
